@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pemesanan Tiket</title>
+    <!-- Link Boostrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Link JS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <!-- Untuk menampilkan pop up -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            alert("Selamat datang di Sistem Pemesanan Tiket Pesawat by Fransisca Fortua Simamora_Group7, silahkan melakukan pemesanan");
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Pemesanan Tiket Pesawat</h1>
+        <br>
+        <form method="post" action="{{ url_for('booking') }}">
+            <label for="nama">Nama Penumpang :</label>
+            <input type="text" name="nama" required>
+            <br>
+            <label for="kelas">Kelas Tiket :</label>
+            <select name="kelas" required>
+                <option value="Ekonomi">Ekonomi</option>
+                <option value="Bisnis">Bisnis</option>
+                <option value="First Class">First Class</option>
+            </select>
+            <br>
+            <label for="harga">Harga Tiket :</label>
+            <input type="number" name="harga" required>
+            <br>
+            <label for="jumlah_penumpang">Jumlah Penumpang :</label>
+            <input type="number" name="jumlah_penumpang" required>
+            <br>
+            <!-- Menggunakan button bootstrap -->
+            <button type="button" class="btn btn-primary">Pesan Tiket</button>
+        </form>
+        <br>
+        
+        <ul>
+            {% for tiket in tiket_list %}
+                <li>
+                    <h3>{{ tiket.nama }} - {{ tiket.kelas }}</h3>
+                    <p>Harga Tiket: {{ tiket.harga }}</p>
+                    <p>Jumlah Penumpang: {{ tiket.jumlah_penumpang }}</p>
+                    <p>Total: {{ tiket.harga * tiket.jumlah_penumpang }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>
